@@ -24,7 +24,7 @@ public class rugbyScore {
 			return Arrays.asList(String.format("%s %s %s", 0, 0, 0));
 		}
 		return Stream.concat(getPenaltiesCombinaisons(score).stream(),
-				getCombinaisonsWithTryTranformationPenalties(score).stream()).collect(Collectors.toList());
+				getCombinaisonsWithTryTranformationPenalties(score).stream()).sorted().collect(Collectors.toList());
 	}
 
 	private static List<String> getCombinaisonsWithTryTranformationPenalties(int score) {
@@ -46,7 +46,9 @@ public class rugbyScore {
 				combinaisons.add(String.format("%s %s %s", nbrTry, nbrTransformations, 0));
 				break;
 			}
-			fetchForAdditionalPenalties(score, combinaisons, nbrTry, nbrTransformations);
+			if (nbrTry > 0) {
+				fetchForAdditionalPenalties(score, combinaisons, nbrTry, nbrTransformations);
+			}
 		}
 	}
 
